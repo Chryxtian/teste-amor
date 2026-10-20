@@ -1,20 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Teste do Amor ❤️</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#24122f">
+  <title>Teste do Amor ❤️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+    :root { color-scheme: dark; --pink:#ff6b9d; --cream:#fff3f5; }
+    * { box-sizing:border-box }
+    body { margin:0; min-height:100vh; overflow:hidden; display:grid; place-items:center; padding:24px; color:var(--cream); font-family:'DM Sans',sans-serif; background:radial-gradient(ellipse at 50% 110%,#702a64 0%,transparent 52%),radial-gradient(ellipse at 90% 0%,#55234c 0%,transparent 42%),linear-gradient(145deg,#170f28,#2a1536 55%,#21142e); }
+    .glow { position:fixed; width:420px;height:420px;border-radius:50%;filter:blur(100px);opacity:.19;pointer-events:none;animation:drift 11s ease-in-out infinite alternate }
+    .glow.one { background:#ff4f91;top:-210px;left:-160px }.glow.two { background:#9b5cff;right:-200px;bottom:-230px;animation-delay:-4s }
+    .stars { position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(1px 1px at 12% 18%,#fff 98%,transparent),radial-gradient(1px 1px at 78% 23%,#fff 98%,transparent),radial-gradient(1.5px 1.5px at 65% 78%,#fff 98%,transparent),radial-gradient(1px 1px at 25% 82%,#fff 98%,transparent),radial-gradient(1px 1px at 91% 61%,#fff 98%,transparent);opacity:.45 }
+    main { position:relative;width:min(100%,470px);padding:48px 42px 38px;text-align:center;border:1px solid rgba(255,255,255,.16);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035));box-shadow:0 28px 90px #10081888,inset 0 1px 0 #ffffff24;backdrop-filter:blur(18px);animation:appear .9s cubic-bezier(.2,.8,.2,1) both }
+    .badge { display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border:1px solid #ff8bac55;border-radius:99px;color:#ffc1d3;background:#ff619314;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase }
+    .badge i { width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 12px var(--pink);animation:pulse 1.7s infinite }
+    .heart { display:grid;place-items:center;width:105px;height:105px;margin:27px auto 23px;border-radius:50%;font-size:48px;background:radial-gradient(circle at 35% 28%,#ff9cba,#ed4c83 56%,#a82465);box-shadow:0 0 0 12px #ff6b9d0d,0 0 50px #ff4e8b52;animation:heartbeat 1.8s ease-in-out infinite }
+    h1 { margin:0;font:700 clamp(32px,8vw,43px)/1.1 'Playfair Display',serif;letter-spacing:-.035em }
+    h1 span { color:#ff8eb1 }
+    .intro { max-width:330px;margin:15px auto 26px;color:#e2d6e7;font-size:15px;line-height:1.65 }
+    form { text-align:left }
+    label { display:block;margin-bottom:9px;color:#f4dce8;font-size:13px;font-weight:600 }
+    .input-wrap { position:relative }
+    .input-wrap span { position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none }
+    input { width:100%;height:54px;padding:0 16px 0 46px;border:1px solid #ffffff29;border-radius:14px;outline:none;background:#160f22a8;color:white;font:500 15px 'DM Sans',sans-serif;transition:.25s }
+    input::placeholder { color:#a99aaf } input:focus { border-color:#ff8eb1;box-shadow:0 0 0 4px #ff6b9d20 }
+    button { width:100%;height:54px;margin-top:14px;border:0;border-radius:14px;color:#351528;background:linear-gradient(100deg,#ff9db8,#ff6899 55%,#ff8b9f);font:700 15px 'DM Sans',sans-serif;cursor:pointer;box-shadow:0 9px 24px #ff4e8b35;transition:transform .2s,filter .2s,box-shadow .2s }
+    button:hover { transform:translateY(-2px);filter:brightness(1.07);box-shadow:0 12px 30px #ff4e8b55 } button:active { transform:translateY(0) scale(.99) }
+    .result { display:none;margin-top:22px;padding:16px 15px;border:1px solid #ffffff1d;border-radius:15px;background:#ffffff0b;line-height:1.55;animation:appear .35s ease both }
+    .result.show { display:block }.result.good { color:#ffd7e4;border-color:#ff8eae66;background:#ff6b9d12 }.result.bad { color:#f4dce8 }
+    .result strong { display:block;margin-bottom:4px;font:700 21px 'Playfair Display',serif }
+    .foot { margin:25px 0 0;color:#ad9bb5;font-size:11px;letter-spacing:.06em }
+    .float { position:fixed;bottom:-40px;left:var(--x);font-size:var(--size);opacity:0;pointer-events:none;animation:floatUp var(--duration) linear var(--delay) infinite }
+    .confetti { position:fixed;top:-20px;left:var(--x);width:var(--w);height:var(--h);background:var(--c);border-radius:2px;pointer-events:none;animation:fall var(--d) linear forwards }
+    @keyframes appear { from { opacity:0;transform:translateY(18px) scale(.98) } to { opacity:1;transform:none } }
+    @keyframes heartbeat { 0%,100% { transform:scale(1) } 8% { transform:scale(1.08) } 16% { transform:scale(1) } 24% { transform:scale(1.05) } 34% { transform:scale(1) } }
+    @keyframes pulse { 50% { opacity:.4;transform:scale(.8) } }
+    @keyframes drift { to { transform:translate(70px,50px) scale(1.2) } }
+    @keyframes floatUp { 0% { opacity:0;transform:translateY(0) rotate(0deg) } 10% { opacity:.65 } 85% { opacity:.5 } 100% { opacity:0;transform:translateY(-115vh) rotate(35deg) } }
+    @keyframes fall { to { transform:translateY(110vh) rotate(720deg);opacity:0 } }
+    @media(max-width:520px) { main { padding:38px 25px 30px;border-radius:24px }.heart { width:90px;height:90px;font-size:42px;margin:23px auto 20px } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important } }
+  </style>
 </head>
 <body>
-
-<script>
-    let nome = prompt("Digite seu nome:");
-
-    if (nome.toLowerCase() === "julia") {
-        alert("❤️ Você é o amor de Chrystian! ❤️");
-    } else {
-        alert("ERRO! ❌ Nome incorreto. Apenas Julia é o amor de Chrystian! 😤❤️");
+  <div class="glow one"></div><div class="glow two"></div><div class="stars"></div>
+  <div class="float" style="--x:8%;--size:17px;--duration:13s;--delay:0s">♡</div>
+  <div class="float" style="--x:24%;--size:12px;--duration:16s;--delay:5s">✦</div>
+  <div class="float" style="--x:72%;--size:19px;--duration:14s;--delay:2s">♡</div>
+  <div class="float" style="--x:90%;--size:13px;--duration:18s;--delay:8s">✦</div>
+  <main>
+    <div class="badge"><i></i> Um teste feito com carinho</div>
+    <div class="heart" aria-hidden="true">❤️</div>
+    <h1>Teste do <span>Amor</span></h1>
+    <p class="intro">Dizem que o amor verdadeiro tem nome. Vamos descobrir se você já sabe qual é? 💌</p>
+    <form id="loveForm">
+      <label for="nome">Qual é o seu nome?</label>
+      <div class="input-wrap"><span aria-hidden="true">✨</span><input id="nome" name="nome" type="text" placeholder="Digite seu nome aqui..." autocomplete="given-name" required></div>
+      <button type="submit">Revelar o resultado <span aria-hidden="true">→</span></button>
+    </form>
+    <div id="result" class="result" role="status" aria-live="polite"></div>
+    <p class="foot">FEITO COM ❤️ POR CHRYSTIAN</p>
+  </main>
+  <script>
+    const form = document.querySelector('#loveForm');
+    const input = document.querySelector('#nome');
+    const result = document.querySelector('#result');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const nome = input.value.trim();
+      if (!nome) { input.focus(); return; }
+      result.className = 'result show';
+      if (nome.toLocaleLowerCase('pt-BR') === 'julia') {
+        result.classList.add('good');
+        result.innerHTML = '<strong>Acertou, Julia! 💖</strong>Você é o amor de Chrystian!';
+        burst();
+      } else {
+        result.classList.add('bad');
+        result.innerHTML = '<strong>Hmm... quase! 💭</strong>Esse coração já tem dona: Julia! ❤️';
+      }
+    });
+    function burst() {
+      const colors = ['#ff6b9d','#ffd166','#fff3f5','#c084fc','#ff9f68'];
+      for (let i = 0; i < 55; i++) {
+        const piece = document.createElement('i');
+        piece.className = 'confetti';
+        piece.style.setProperty('--x', Math.random() * 100 + 'vw');
+        piece.style.setProperty('--w', 5 + Math.random() * 7 + 'px');
+        piece.style.setProperty('--h', 8 + Math.random() * 9 + 'px');
+        piece.style.setProperty('--c', colors[i % colors.length]);
+        piece.style.setProperty('--d', 2.2 + Math.random() * 1.8 + 's');
+        document.body.appendChild(piece);
+        piece.addEventListener('animationend', () => piece.remove());
+      }
     }
-</script>
-
+  </script>
 </body>
 </html>
